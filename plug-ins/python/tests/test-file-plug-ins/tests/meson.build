@@ -1,0 +1,58 @@
+# Add test configuration data...
+
+install_data([
+    # main config files
+    'config.ini',       # not yet updated!
+    'batch-config.ini',
+    # file format specific config files for import testing
+    'bmp-tests.ini',
+    'dcx-tests.ini',
+    'dds-tests.ini',
+    'gif-tests.ini',
+    'jpeg-tests.ini',
+    'pcx-tests.ini',
+    'png-tests.ini',
+    'pnm-tests.ini',
+    'psb-tests.ini',
+    'psd-tests.ini',
+    'sgi-tests.ini',
+    'tga-tests.ini',
+    'tif-tests.ini',
+    # file format specific config files for export testing
+    'bmp-export-tests.ini',
+    # file format specific files containing the files to test importing and
+    # their expected result
+    'bmpsuite-b-tests.files',
+    'bmpsuite-g-tests.files',
+    'bmpsuite-q-tests.files',
+    'dcx-tests-1.files',
+    'dds-tests.files',
+    'dds-tests-2.files',
+    'gif-imagetestsuite-tests.files',
+    'gif-pillow-tests.files',
+    'jpeg-imagetestsuite-tests.files',
+    'pcx-tests-1.files',
+    'pcx-tests-2.files',
+    'png-brokensuite-tests.files',
+    'png-imagetestsuite-tests.files',
+    'png-suite-tests.files',
+    'png-suite-tests-corrupt.files',
+    'pnm-tests-1.files',
+    'pnm-tests-2.files',
+    'pnm-tests-3.files',
+    'psb-tests.files',
+    'psd-tests.files',
+    'psd-colormodes-tests.files',
+    'psdparse-tests.files',
+    'sgi-tests.files',
+    'sgi-tests-2.files',
+    'sgi-tests-3.files',
+    'tga-pillow-tests.files',
+    'tga-tests.files',
+    'tif-cpan-tests.files',
+    'tif-imagetestsuite-tests.files',
+    'tif-imagetestsuite-tests-2.files',
+    'tif-imagetestsuite-tests-3.files',
+  ],
+  install_dir: gimpplugindir / 'plug-ins' / 'test-file-plug-ins' / 'tests',
+)

@@ -1013,6 +1013,57 @@ cppcheck:
       - report
   needs: []
 
+file-plug-in-tests:
+  # FIXME: Do we need another job testing this under Windows? MSYS2 usually has
+  #        the latest deps. It might be a good idea to test that too, maybe weekly?
+  rules:
+    # On commits and merge requests.
+    - if: '$CI_PIPELINE_SOURCE == "push"'
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+    # On releases.
+    - if: '$CI_COMMIT_TAG != null'
+  variables:
+    CHERE_INVOKING: "yes"
+    GIMP_TESTS_DATA_FOLDER: "$CI_PROJECT_DIR/_data/"
+    REGRESSION_STRING: "Total number of regressions: 0"
+  cache:
+    paths:
+    - _data
+  stage: analysis
+  image: $CI_REGISTRY_IMAGE:build-debian-latest
+  dependencies:
+    # we need GIMP to run the tests
+    - gimp-debian-x64
+  artifacts:
+    name: "${CI_JOB_NAME}-${CI_COMMIT_REF_SLUG}"
+    when: always
+    expire_in: 2 days
+    paths:
+      - _log/
+  before_script:
+    - mkdir _log
+    - mkdir _data && cd _data
+    - git clone --depth=${GIT_DEPTH} https://gitlab.gnome.org/Infrastructure/gimp-test-images.git gimp-test-images
+    - git clone --depth=${GIT_DEPTH} https://github.com/AcademySoftwareFoundation/OpenImageIO-images.git oiio
+    - git clone --depth=${GIT_DEPTH} https://github.com/mike-lischke/GraphicEx.git graphicex
+    - cd ..
+    - export LD_LIBRARY_PATH="${GIMP_PREFIX}/lib:${LD_LIBRARY_PATH}"
+    - export LD_LIBRARY_PATH="${GIMP_PREFIX}/lib/`gcc -print-multiarch`:$LD_LIBRARY_PATH"
+    - export XDG_DATA_DIRS="${GIMP_PREFIX}/share:/usr/local/share:/usr/share"
+    - export GI_TYPELIB_PATH="${GIMP_PREFIX}/lib/`gcc -print-multiarch`/girepository-1.0/:${GI_TYPELIB_PATH}"
+    - export PATH="${GIMP_PREFIX}/bin:$PATH"
+    #FIXME replace 2.99 by version variable
+    - export PYTHONPATH="${GIMP_PREFIX}/lib/`gcc -print-multiarch`/gimp/2.99/plug-ins/test-file-plug-ins"
+    - export GIMP_TESTS_CONFIG_FILE="${GIMP_PREFIX}/lib/`gcc -print-multiarch`/gimp/2.99/plug-ins/test-file-plug-ins/tests/batch-config.ini"
+    - export GIMP_TESTS_LOG_FILE="$CI_PROJECT_DIR/_log/tests.log"
+  script:
+    - cat ${GIMP_PREFIX}/lib/`gcc -print-multiarch`/gimp/2.99/plug-ins/test-file-plug-ins/batch-import-tests.py | gimp-console-2.99 -idf --batch-interpreter python-fu-eval -b - --quit
+    - if [ $(grep -c "${REGRESSION_STRING}" "${GIMP_TESTS_LOG_FILE}") -ne 1 ]; then
+        echo "There are file import regressions. Check the log at ${GIMP_TESTS_LOG_FILE}!";
+        exit 1;
+      fi
+  needs: ["gimp-debian-x64"]
+
 ## Ready-to-distribute ##
 
 dist-flatpak-weekly:

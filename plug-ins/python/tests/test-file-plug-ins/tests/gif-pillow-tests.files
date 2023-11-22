@@ -1,0 +1,36 @@
+background_outside_palette.gif
+chi.gif
+comment_after_last_frame.gif
+comment_after_only_frame.gif
+decompression_bomb.gif, EXPECTED_FAIL
+decompression_bomb_extents.gif
+different_transparency.gif
+dispose_bgnd.gif
+dispose_bgnd_rgba.gif
+dispose_bgnd_transparency.gif
+dispose_none.gif
+dispose_none_load_end.gif
+dispose_prev.gif
+dispose_prev_first_frame.gif
+duplicate_frame.gif
+duplicate_number_of_loops.gif
+first_frame_transparency.gif
+hopper.gif
+hopper_resized.gif
+hopper_zero_comment_subblocks.gif
+iss634.gif
+issue_2811.gif
+missing_background.gif
+multiple_comments.gif
+no_palette.gif
+no_palette_after_rgb.gif
+no_palette_with_background.gif
+no_palette_with_transparency.gif
+palette_not_needed_for_second_frame.gif
+second_frame_comment.gif
+test.colors.gif
+test_extents.gif
+text_mono.gif
+transparent.gif
+transparent_dispose.gif
+zero_width.gif, EXPECTED_FAIL

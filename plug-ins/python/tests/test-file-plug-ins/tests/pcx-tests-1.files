@@ -1,0 +1,4 @@
+01r_00.pcx, EXPECTED_FAIL
+odd_stride.pcx
+ossfuzz-4836216264589312.pcx, EXPECTED_FAIL
+pil184.pcx
