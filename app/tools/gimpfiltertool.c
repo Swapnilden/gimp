@@ -401,7 +401,18 @@ gimp_filter_tool_initialize (GimpTool     *tool,
 
       toggle = gimp_prop_check_button_new (G_OBJECT (tool_info->tool_options),
                                            "preview", NULL);
-      gtk_box_pack_start (GTK_BOX (hbox), toggle, TRUE, TRUE, 0);
+
+      if (! GIMP_IS_LAYER (drawable))
+        gtk_box_pack_start (GTK_BOX (hbox), toggle, TRUE, TRUE, 0);
+      else
+        gtk_box_pack_start (GTK_BOX (hbox), toggle, FALSE, FALSE, 0);
+
+      if (GIMP_IS_LAYER (drawable))
+        {
+          toggle = gimp_prop_check_button_new (G_OBJECT (tool_info->tool_options),
+                                               "apply-non-destructively", NULL);
+          gtk_box_pack_start (GTK_BOX (hbox), toggle, TRUE, TRUE, 0);
+        }
 
       toggle = gimp_prop_check_button_new (G_OBJECT (tool_info->tool_options),
                                            "preview-split", NULL);
@@ -468,10 +479,11 @@ gimp_filter_tool_control (GimpTool       *tool,
                           GimpToolAction  action,
                           GimpDisplay    *display)
 {
-  GimpFilterTool *filter_tool     = GIMP_FILTER_TOOL (tool);
-  GimpDrawable   *drawable        = NULL;
-  gboolean        non_destructive = TRUE;
-  gchar          *operation_name  = NULL;
+  GimpFilterTool    *filter_tool     = GIMP_FILTER_TOOL (tool);
+  GimpFilterOptions *options         = GIMP_FILTER_TOOL_GET_OPTIONS (filter_tool);
+  GimpDrawable      *drawable        = NULL;
+  gboolean           non_destructive = TRUE;
+  gchar             *operation_name  = NULL;
 
   switch (action)
     {
@@ -489,7 +501,8 @@ gimp_filter_tool_control (GimpTool       *tool,
 
       /* TODO: Expand non-destructive editing to other drawables
        * besides layers */
-      if (! GIMP_IS_LAYER (drawable))
+      if (! GIMP_IS_LAYER (drawable) ||
+          ! options->apply_non_destructively)
         non_destructive = FALSE;
 
       if (filter_tool->operation)

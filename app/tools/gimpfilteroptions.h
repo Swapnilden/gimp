@@ -44,6 +44,8 @@ struct _GimpFilterOptions
 
   gboolean           blending_options_expanded;
   gboolean           color_options_expanded;
+
+  gboolean           apply_non_destructively;
 };
 
 struct _GimpFilterOptionsClass

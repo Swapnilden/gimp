@@ -39,7 +39,8 @@ enum
   PROP_PREVIEW_SPLIT_POSITION,
   PROP_CONTROLLER,
   PROP_BLENDING_OPTIONS_EXPANDED,
-  PROP_COLOR_OPTIONS_EXPANDED
+  PROP_COLOR_OPTIONS_EXPANDED,
+  PROP_APPLY_NON_DESTRUCTIVELY
 };
 
 
@@ -115,6 +116,13 @@ gimp_filter_options_class_init (GimpFilterOptionsClass *klass)
                             NULL, NULL,
                             FALSE,
                             GIMP_PARAM_STATIC_STRINGS);
+
+  GIMP_CONFIG_PROP_BOOLEAN (object_class, PROP_APPLY_NON_DESTRUCTIVELY,
+                            "apply-non-destructively",
+                            _("_Apply Non-Destructively"),
+                            NULL,
+                            TRUE,
+                            GIMP_PARAM_STATIC_STRINGS);
 }
 
 static void
@@ -160,6 +168,10 @@ gimp_filter_options_set_property (GObject      *object,
       options->color_options_expanded = g_value_get_boolean (value);
       break;
 
+    case PROP_APPLY_NON_DESTRUCTIVELY:
+      options->apply_non_destructively = g_value_get_boolean (value);
+      break;
+
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
       break;
@@ -202,6 +214,10 @@ gimp_filter_options_get_property (GObject    *object,
 
     case PROP_COLOR_OPTIONS_EXPANDED:
       g_value_set_boolean (value, options->color_options_expanded);
+      break;
+
+    case PROP_APPLY_NON_DESTRUCTIVELY:
+      g_value_set_boolean (value, options->apply_non_destructively);
       break;
 
     default:
