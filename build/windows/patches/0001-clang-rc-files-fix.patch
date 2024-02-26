@@ -1,7 +1,8 @@
-diff -urN gimp-2.10.30-orig/build/windows/gimp-plug-ins.rc.in gimp-2.10.30/build/windows/gimp-plug-ins.rc.in
---- gimp-2.10.30-orig/build/windows/gimp-plug-ins.rc.in	2021-12-20 04:48:33.000000000 +0800
-+++ gimp-2.10.30/build/windows/gimp-plug-ins.rc.in	2022-01-05 20:54:00.814712400 +0800
-@@ -63,5 +63,5 @@
+diff --git a/build/windows/gimp-plug-ins.rc.in b/build/windows/gimp-plug-ins.rc.in
+index d6fbe8dc70..075164b27b 100644
+--- a/build/windows/gimp-plug-ins.rc.in
++++ b/build/windows/gimp-plug-ins.rc.in
+@@ -63,5 +63,5 @@ BEGIN
  END
  
  #include "winuser.h"
@@ -9,16 +10,17 @@ diff -urN gimp-2.10.30-orig/build/windows/gimp-plug-ins.rc.in gimp-2.10.30/build
 -CREATEPROCESS_MANIFEST_RESOURCE_ID RT_MANIFEST QUOTE(TOP_SRCDIR) "/build/windows/gimp.manifest"
 +1	ICON	"./build/windows/plug-ins.ico"
 +CREATEPROCESS_MANIFEST_RESOURCE_ID RT_MANIFEST "./build/windows/gimp.manifest"
-diff -urN gimp-2.10.30-orig/build/windows/gimp.rc.in gimp-2.10.30/build/windows/gimp.rc.in
---- gimp-2.10.30-orig/build/windows/gimp.rc.in	2021-12-20 04:48:33.000000000 +0800
-+++ gimp-2.10.30/build/windows/gimp.rc.in	2022-01-05 20:52:37.741960900 +0800
-@@ -64,6 +64,6 @@
+diff --git a/build/windows/gimp.rc.in b/build/windows/gimp.rc.in
+index 846ad0445a..7d19f74705 100644
+--- a/build/windows/gimp.rc.in
++++ b/build/windows/gimp.rc.in
+@@ -64,6 +64,6 @@ BEGIN
  END
  
  #include "winuser.h"
--1	ICON	QUOTE(TOP_SRCDIR) "/build/windows/wilber.ico"
+-1	ICON	QUOTE(TOP_SRCDIR) "/subprojects/gimp-data/images/gimp.ico"
 -2	ICON	QUOTE(TOP_SRCDIR) "/build/windows/fileicon.ico"
 -CREATEPROCESS_MANIFEST_RESOURCE_ID RT_MANIFEST QUOTE(TOP_SRCDIR) "/build/windows/gimp.manifest"
-+1	ICON	"./build/windows/wilber.ico"
++1	ICON	"./subprojects/gimp-data/images/gimp.ico"
 +2	ICON	"./build/windows/fileicon.ico"
 +CREATEPROCESS_MANIFEST_RESOURCE_ID RT_MANIFEST "./build/windows/gimp.manifest"
