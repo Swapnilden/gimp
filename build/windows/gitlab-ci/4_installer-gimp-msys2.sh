@@ -76,11 +76,11 @@ download_lang Vietnamese.isl
 cd -
 
 # Copy generated language files into the source directory.
-cp _build-x64/build/windows/installer/lang/*isl build/windows/installer/lang
+cp _build-a64/build/windows/installer/lang/*isl build/windows/installer/lang
 
 
 # Copy generated welcome images into the source directory.
-cp _build-x64/build/windows/installer/*bmp build/windows/installer/
+cp _build-a64/build/windows/installer/*bmp build/windows/installer/
 
 
 # Construct now the installer.
